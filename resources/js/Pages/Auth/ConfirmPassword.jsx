@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/Guest';
+import Guest from '@/Layouts/Guest';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
+import Guest from '@/Layouts/Guest';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -28,7 +29,7 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Confirm Password" />
 
             <div className="mb-4 text-sm text-gray-600">
@@ -58,6 +59,9 @@ export default function ConfirmPassword() {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+
+Layout.ConfirmPassword = page => <Guest children={page} />

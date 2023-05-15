@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import Navbar from './Navbar';
 
-export default function App({ auth, header, children }) {
+export default function App({ children }) {
     // const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (

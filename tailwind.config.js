@@ -15,7 +15,7 @@ module.exports = {
                 sans: ['Work Sans', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: '#0d9488',
+                primary: '#134e4a',
                 secondary: '#14b8a6',
                 third: '#334155',
             },

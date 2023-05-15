@@ -1,14 +1,29 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
 import App from '@/Layouts/App';
+import Header from '@/Components/Header';
+import Grid from '@/Components/Grid';
 
-export default function Home(props) {
+export default function Dashboard(props) {
     return (
         <>
-            <Head title="Home" />
-            <h1>Hello</h1>
+            <Head title="Dashboard" />
+            <Header>                        <Header.Title>
+                Consectetur
+            </Header.Title>
+                <Header.Subtitle>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing.
+                </Header.Subtitle>
+                <Header.Content>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis esse similique aperiam illo quidem fugiat eligendi, labore iure numquam rerum, vero ea et obcaecati maiores! Sit neque pariatur eos sequi.
+                </Header.Content>
+            </Header>
+
+            <Container>
+                <Grid className='items-start'></Grid>
+            </Container>
         </>
     );
 }
 
-Home.layout = page => <App children={page} />
+Dashboard.layout = page => <App children={page} />
