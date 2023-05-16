@@ -9,7 +9,7 @@ export default function Navbar() {
     const { auth, categories_global, carts_global_count } = usePage().props
     return (
 
-        <nav className="bg-primary border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <nav className="bg-primary border-gray-200 dark:bg-gray-900 dark:border-gray-700 mb-4">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <NavLink href="#" className="flex items-center">
                     <ApplicationLogo />

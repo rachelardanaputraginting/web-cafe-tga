@@ -24,15 +24,15 @@ export default function Index(props) {
                 </Header.Content>
             </Header>
             <Container>
-                {/* {products.length ? */}
-                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-10 gap-4'>
-                    {
-                        products.map(product => (
-                            <ProductItem product={product} key={product.id}></ProductItem>
-                        ))
-                    }
-                </div>
-                {/* : null} */}
+                {products.length ?
+                    <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-10 gap-4'>
+                        {
+                            products.map(product => (
+                                <ProductItem product={product} key={product.id}></ProductItem>
+                            ))
+                        }
+                    </div>
+                    : null}
             </Container>
             <Pagination meta={meta} links={links} />
         </>

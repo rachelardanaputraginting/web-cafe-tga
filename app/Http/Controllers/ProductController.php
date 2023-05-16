@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductSingleResource;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -55,9 +56,11 @@ class ProductController extends Controller
      * @param  \App\Models\ProductController  $productController
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductController $productController)
+    public function show(Product $product)
     {
-        //
+        return inertia('Products/Show', [
+            "product" => ProductSingleResource::make($product->load('category')),
+        ]);
     }
 
     /**

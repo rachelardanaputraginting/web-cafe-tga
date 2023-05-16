@@ -21,17 +21,19 @@ export default function Home({ products }) {
                 </Header.Content>
             </Header>
             <Container>
-                {/* {products.length ? */}
-                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-10 gap-4'>
-                    {
-                        products.map(product => (
-                            <ProductItem product={product} key={product.id}></ProductItem>
-                        ))
+                {products.length ?
+                    <>
+                        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-10 gap-4'>
+                            {
+                                products.map(product => (
+                                    <ProductItem product={product} key={product.id}></ProductItem>
+                                ))
 
-                    }
-                </div>
-                <Link className="text-secondary underline text-center w-full block mt-10" href={route('products.index')}>Show more articles.</Link>
-                {/* : null} */}
+                            }
+                        </div>
+                        <Link className="text-secondary underline text-center w-full block mt-10" href={route('products.index')}>Show more articles.</Link>
+                    </>
+                    : <p>No item yet!</p>}
             </Container >
         </>
     );
