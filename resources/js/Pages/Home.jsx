@@ -7,8 +7,6 @@ import ProductItem from '@/Components/ProductItem';
 
 
 export default function Home({ products }) {
-
-
     return (
         <>
             <Head title="Home" />
@@ -30,7 +28,7 @@ export default function Home({ products }) {
                         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-10 gap-4'>
                             {
                                 products.map(product => (
-                                    <ProductItem product={product} key={product.id}></ProductItem>
+                                    <ProductItem product={product} key={product.slug}></ProductItem>
                                 ))
 
                             }
@@ -41,9 +39,6 @@ export default function Home({ products }) {
 
 
             </Container >
-
-
-
 
         </>
     );

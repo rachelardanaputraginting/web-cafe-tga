@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -47,6 +48,18 @@ class HandleInertiaRequests extends Middleware
                 "name" => $q->name,
                 "slug" => $q->slug,
             ])),
+
+            'carts_global' =>
+            Cache::rememberForever('carts_global', fn () => Cart::query()
+                ->with('product')
+                ->get()->map(fn ($q) => [
+                    "id" => $q->id,
+                    "price" => $q->price,
+                    "product" => [
+                        "name" => $q->product->name,
+                        "slug" => $q->product->slug,
+                    ]
+                ])),
         ]);
     }
 }

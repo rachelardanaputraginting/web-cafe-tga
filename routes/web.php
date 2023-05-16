@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +25,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('products', ProductController::class);
+
+Route::controller(CartController::class)->group(function () {
+    Route::get('/carts', 'index')->name('cart.index');
+    Route::delete('/carts/delete/{cart}', 'destroy')->name('cart.delete');
+    Route::post('/carts/add_to_cart/{product:slug}', 'store')->name('cart.store');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
