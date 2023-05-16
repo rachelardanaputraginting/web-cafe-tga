@@ -1,14 +1,17 @@
 import React from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import App from '@/Layouts/App';
-import Header from '@/Components/Header';
-import ProductItem from '@/Components/ProductItem';
 import Container from '@/Components/Container';
+import Header from '@/Components/Header';
+import Navbar from '@/Layouts/Navbar';
+import ProductItem from '@/Components/ProductItem';
+import Pagination from '@/Components/Pagination';
 
-export default function Home({ products }) {
+export default function Index(props) {
+    const { data: products, meta, links } = props.products;
     return (
         <>
-            <Head title="Home" />
+            <Head title="Our Products" />
             <Header>
                 <Header.Title>
                     Our Products
@@ -27,14 +30,13 @@ export default function Home({ products }) {
                         products.map(product => (
                             <ProductItem product={product} key={product.id}></ProductItem>
                         ))
-
                     }
                 </div>
-                <Link className="text-secondary underline text-center w-full block mt-10" href={route('products.index')}>Show more articles.</Link>
                 {/* : null} */}
-            </Container >
+            </Container>
+            <Pagination meta={meta} links={links} />
         </>
     );
 }
 
-Home.layout = page => <App children={page} />
+Index.layout = page => <App children={page} />

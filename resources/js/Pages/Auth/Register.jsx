@@ -120,4 +120,4 @@ export default function Register() {
     );
 }
 
-Register.Layout = page => <Guest children={page} />
+Register.layout = page => <Guest children={page} />

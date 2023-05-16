@@ -1,8 +1,7 @@
-import clsx from 'clsx'
 import React from 'react'
 
-export default function Container({ children, className }) {
+export default function Container({ children }) {
     return (
-        <div className={clsx('max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4', className)}>{children}</div>
+        <div className='max-w-screen-xl flex flex-wrap items-center  mx-auto p-4'>{children}</div>
     )
 }

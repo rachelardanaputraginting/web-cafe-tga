@@ -44,4 +44,4 @@ export default function VerifyEmail({ status }) {
     );
 }
 
-Layout.VerifyEmail = page => <Guest children={page} />
+VerifyEmail.layout = page => <Guest children={page} />

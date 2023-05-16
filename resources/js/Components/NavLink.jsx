@@ -7,8 +7,7 @@ export default function NavLink({ href, className, active, children, ...props })
             {...props}
             href={href}
             className={clsx(usePage().url == href && 'font-semibold text-white',
-                className,
-                'text-gray-50 hover:text-gray-300 py-3')}
+                'text-gray-50 hover:text-gray-300 py-3', className)}
         >
             {children}
         </Link>

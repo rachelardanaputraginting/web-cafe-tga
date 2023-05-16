@@ -54,4 +54,4 @@ export default function ForgotPassword({ status }) {
 }
 
 
-Layout.ForgotPassword = page => <Guest children={page} />
+ForgotPassword.layout = page => <Guest children={page} />

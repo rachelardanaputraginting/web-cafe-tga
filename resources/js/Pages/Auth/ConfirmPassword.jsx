@@ -64,4 +64,4 @@ export default function ConfirmPassword() {
 }
 
 
-Layout.ConfirmPassword = page => <Guest children={page} />
+ConfirmPassword.layout = page => <Guest children={page} />

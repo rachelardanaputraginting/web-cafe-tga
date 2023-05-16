@@ -15,9 +15,9 @@ class HomeController extends Controller
             ->with('category')
             ->when($request->category, fn ($q, $v) => $q->whereBelongsTo(Category::where('slug', $v)->first()))
             ->select('id', 'price', 'slug', 'name', 'picture', 'category_id')
-            ->paginate(12)
-            ->withQueryString();
-        // return ProductResource::collection($products);
+            ->limit(8)
+            ->latest()
+            ->get();
         return inertia('Home', [
             "products" => ProductResource::collection($products)
         ]);

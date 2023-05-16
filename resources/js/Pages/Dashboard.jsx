@@ -5,7 +5,7 @@ import Header from '@/Components/Header';
 import Grid from '@/Components/Grid';
 import Container from '@/Components/Container';
 
-export default function Dashboard(props) {
+export default function Dashboard() {
     return (
         <>
             <Head title="Dashboard" />

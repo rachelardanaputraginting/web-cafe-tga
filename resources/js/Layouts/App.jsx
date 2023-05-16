@@ -4,10 +4,9 @@ export default function App({ children }) {
     // const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen">
             <Navbar />
-
-            <main>{children}</main>
+            <div >{children}</div>
         </div>
     );
 }

@@ -2,30 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ProductResource;
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $products = Product::query()
-            ->with('category')
-            ->when($request->category, fn ($q, $v) => $q->whereBelongsTo(Category::where('slug', $v)->first()))
-            ->select('name', 'slug', 'category_id', 'price', 'picture')
-            ->paginate(12)
-            ->withQueryString();
-
-        return inertia('Products/Index', [
-            "products" => ProductResource::collection($products),
-        ]);
+        //
     }
 
     /**
@@ -52,10 +41,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductController  $productController
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductController $productController)
+    public function show(Product $product)
     {
         //
     }
@@ -63,10 +52,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductController  $productController
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductController $productController)
+    public function edit(Product $product)
     {
         //
     }
@@ -75,10 +64,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductController  $productController
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductController $productController)
+    public function update(Request $request, Product $product)
     {
         //
     }
@@ -86,10 +75,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductController  $productController
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductController $productController)
+    public function destroy(Product $product)
     {
         //
     }
