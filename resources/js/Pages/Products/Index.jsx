@@ -34,6 +34,9 @@ export default function Index(props) {
                     </div>
                     : null}
             </Container>
+
+
+
             <Pagination meta={meta} links={links} />
         </>
     );

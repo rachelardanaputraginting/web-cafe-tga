@@ -6,7 +6,7 @@ function Header({ className = '', children }) {
         <div
             className={clsx(
                 className,
-                '-mt-8 mb-8 md:mb-16 grid grid-cols-12 bg-primary py-5 lg:py-28'
+                ' mb-8 mt-36 md:mb-32 grid grid-cols-12 bg-primary py-12 lg:pt-48 pb-32'
             )}
         >
             <div className="col-span-10 col-start-2">

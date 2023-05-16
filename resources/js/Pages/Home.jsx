@@ -1,17 +1,21 @@
-import React from 'react';
-import { Head, Link } from '@inertiajs/react';
+import React, { useRef } from 'react';
 import App from '@/Layouts/App';
+import { Head, Link } from '@inertiajs/react';
 import Header from '@/Components/Header';
-import ProductItem from '@/Components/ProductItem';
 import Container from '@/Components/Container';
+import ProductItem from '@/Components/ProductItem';
+
 
 export default function Home({ products }) {
+
+
     return (
         <>
             <Head title="Home" />
+
             <Header>
                 <Header.Title>
-                    Our Products
+                    TGA Cafe
                 </Header.Title>
                 <Header.Subtitle>
                     Lorem ipsum, dolor sit amet consectetur adipisicing.
@@ -34,7 +38,13 @@ export default function Home({ products }) {
                         <Link className="text-secondary underline text-center w-full block mt-10" href={route('products.index')}>Show more articles.</Link>
                     </>
                     : <p>No item yet!</p>}
+
+
             </Container >
+
+
+
+
         </>
     );
 }
