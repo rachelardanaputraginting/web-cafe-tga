@@ -23,11 +23,11 @@ export default function Navbar() {
                     <ul className="flex bg-primary flex-col font-medium p-4 items-center md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <NavLink href='/'>Home</NavLink>
                         <NavLink href='/products'>Products</NavLink>
-                        {/* <DropdownMenu label={`Categories`}>
+                        <DropdownMenu label={`Categories`}>
                             {categories_global.map(category => (
                                 <DropdownMenu.Links key={category.slug} href={`/products?category=${category.slug}`}>{category.name}</DropdownMenu.Links>
                             ))}
-                        </DropdownMenu> */}
+                        </DropdownMenu>
                         {auth.user ? (<>
                             <DropdownMenu label={auth.user.name}>
 
