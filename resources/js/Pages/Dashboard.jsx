@@ -3,14 +3,16 @@ import { Head } from '@inertiajs/react';
 import App from '@/Layouts/App';
 import Header from '@/Components/Header';
 import Grid from '@/Components/Grid';
+import Container from '@/Components/Container';
 
 export default function Dashboard(props) {
     return (
         <>
             <Head title="Dashboard" />
-            <Header>                        <Header.Title>
-                Consectetur
-            </Header.Title>
+            <Header>
+                <Header.Title>
+                    Consectetur
+                </Header.Title>
                 <Header.Subtitle>
                     Lorem ipsum, dolor sit amet consectetur adipisicing.
                 </Header.Subtitle>
@@ -19,9 +21,6 @@ export default function Dashboard(props) {
                 </Header.Content>
             </Header>
 
-            <Container>
-                <Grid className='items-start'></Grid>
-            </Container>
         </>
     );
 }
