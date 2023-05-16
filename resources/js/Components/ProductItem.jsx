@@ -4,7 +4,7 @@ import { numberFormat } from '@/Libs/helper'
 
 export default function ProductItem({ product }) {
     return (
-        <div className='mb-4 relative'>
+        <div className='mb-4 relative hover:scale-105 transition duration-300'>
             <Link href={`/products/${product.slug}`}>
                 {/* <div className="relative"> */}
                 <img className='w-full rounded-lg' src={product.picture} alt="" />
