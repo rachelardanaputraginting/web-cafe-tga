@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -33,7 +34,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        // $cart_global_count = $request->user() ? Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count() : null;
+        $cart_global_count = $request->user() ? Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count() : null;
         Cache::flush();
         return array_merge(parent::share($request), [
             'auth' => [
@@ -59,8 +60,10 @@ class HandleInertiaRequests extends Middleware
                         "product" => [
                             "name" => $q->product->name,
                             "slug" => $q->product->slug,
+                            "picture" => $q->product->picture ? Storage::url($q->product->picture) : 'https://fakeimg.pl/200x320/?text=Cafe&font=noto',
                         ]
                     ])) : null,
+            'carts_global_count' => $cart_global_count,
         ]);
     }
 }

@@ -9,7 +9,7 @@ export default function Navbar() {
     // const { data, setData, post, put, reset, errors } = useForm({
     return (
 
-        <nav className="bg-primary border-gray-200 dark:bg-gray-900 top-0 z-[999] dark:border-gray-700 fixed right-0 left-0">
+        <nav className="bg-primary border-gray-200 dark:bg-gray-900 top-0 z-[99] dark:border-gray-700 fixed right-0 left-0">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <NavLink href="#" className="flex items-center">
                     <ApplicationLogo />
