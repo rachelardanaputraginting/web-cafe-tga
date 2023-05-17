@@ -1,10 +1,12 @@
-import Button from '@/Components/Button';
 import Navbar from './Navbar';
 import CartDialog from '@/Components/Dialog';
+import Button from '@/Components/Button';
 import { useState } from 'react'
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Toaster, toast } from 'react-hot-toast';
 import { numberFormat } from '@/Libs/Helper';
+import Footer from '@/Components/Footer';
+import Counter from '@/Components/Counter';
 
 export default function App(props) {
     // const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -23,7 +25,9 @@ export default function App(props) {
 
     const onDeleteHandler = (cart_id) => {
         destroy(route('cart.delete', cart_id), {
-            onSuccess: () => toast.success('Removed')
+            onSuccess: () => {
+                toast.success('Removed')
+            }
         })
     }
 
@@ -40,7 +44,7 @@ export default function App(props) {
                     },
                 }}
                     position="top-center"
-                // reverseOrder={false}
+                    reverseOrder={false}
                 />
             </div>
             <>
@@ -88,16 +92,7 @@ export default function App(props) {
                                                             <span className=' font-semibold'>{cart.product.name}</span>
                                                             <span className='block text-right text-secondary font-semibold text-lg py-2'><sup>Rp. </sup>{numberFormat(cart.price, 0)}</span>
                                                             <div className="mx-1 flex items-center justify-end mt-2 text-xl rounded">
-                                                                <button className="text-primary hover:text-secondary rounded-md" type="button"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
-                                                                </svg>
-                                                                </button>
-                                                                <input type="text" defaultValue={1} className="w-[50px] h-10 dark:bg-dark text-center font-semibold rounded-md border-none focus:border-none focus:ring-0" name="total_order" />
-                                                                <button className="rounded-md text-primary hover:text-secondary" type="button">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                                    </svg>
-                                                                </button>
+                                                                <Counter initialValue={1} />
                                                             </div>
                                                         </div>
                                                         <div>
@@ -114,7 +109,7 @@ export default function App(props) {
                                         </>
                                     ))}
                                 </div>
-                                <div className='text-right text-2xl font-bold text-primary mr-16'>Total price : Rp {' '} {numberFormat(carts_global.reduce((acc, cart) => acc + cart.price, 0))}</div>
+                                <div className='text-right text-2xl font-bold text-primary mr-16 flex gap-4 justify-end items-center'>Total price : <sup> Rp</sup> {' '} {numberFormat(carts_global.reduce((acc, cart) => acc + cart.price, 0))}</div>
                             </>
                             :
                             <>
@@ -141,6 +136,8 @@ export default function App(props) {
 
                     </>
                 </CartDialog>
+
+                <Footer />
             </>
 
         </div >

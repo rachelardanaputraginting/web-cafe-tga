@@ -11,7 +11,7 @@ function CartDialog({ children, isOpen = false, onClose = false }) {
             className="relative z-[999]"
         >
             {/* The backdrop, rendered as a fixed sibling to the panel container */}
-            <div className="fixed inset-0 bg-black/80 blur" aria-hidden="true" />
+            <div className="fixed inset-0 bg-black/80" aria-hidden="true" />
 
             {/* Full-screen scrollable container */}
             <div className="fixed inset-0 overflow-y-auto ">
