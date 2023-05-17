@@ -49,17 +49,18 @@ class HandleInertiaRequests extends Middleware
                 "slug" => $q->slug,
             ])),
 
-            'carts_global' =>
-            Cache::rememberForever('carts_global', fn () => Cart::query()
-                ->with('product')
-                ->get()->map(fn ($q) => [
-                    "id" => $q->id,
-                    "price" => $q->price,
-                    "product" => [
-                        "name" => $q->product->name,
-                        "slug" => $q->product->slug,
-                    ]
-                ])),
+            'carts_global' => $request->user() ?
+                Cache::rememberForever('carts_global', fn () => Cart::query()
+                    ->with('product')
+                    ->whereBelongsTo($request->user())
+                    ->get()->map(fn ($q) => [
+                        "id" => $q->id,
+                        "price" => $q->price,
+                        "product" => [
+                            "name" => $q->product->name,
+                            "slug" => $q->product->slug,
+                        ]
+                    ])) : null,
         ]);
     }
 }

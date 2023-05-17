@@ -24,9 +24,7 @@ class CartController extends Controller
             ]
         );
 
-        Cache::forget('carts_global_count');
-
-        return redirect()->route('cart.index');
+        return redirect()->back();
     }
 
     public function index(Request $request)

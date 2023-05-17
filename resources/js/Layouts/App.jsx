@@ -3,13 +3,13 @@ import Navbar from './Navbar';
 import CartDialog from '@/Components/Dialog';
 import { useState } from 'react'
 import { Link, usePage } from '@inertiajs/react';
-import DropdownMenu from '@/Components/DropdownMenu';
+import { Toaster } from 'react-hot-toast';
 
 export default function App(props) {
     // const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const { children } = props;
     const { carts_global } = usePage().props
-    let [isOpen, setIsOpen] = useState(true)
+    let [isOpen, setIsOpen] = useState(false)
     const modalAdd = () => {
         setIsOpen(true);
     }
@@ -21,6 +21,12 @@ export default function App(props) {
     return (
         <div className="min-h-screen">
             <Navbar />
+            <div>
+                <Toaster
+                    position="top-center"
+                // reverseOrder={false}
+                />
+            </div>
             <>
                 <div>
                     <div className="fixed z-[998] left-0 top-20 right-0 bg-white text-center flex justify-end gap-10 pr-36">
@@ -59,12 +65,15 @@ export default function App(props) {
                                     <div key={cart.slug}> {cart.product.name}</div>
                                 ))}
                             </Link> :
-                            <div className='flex flex-col text-center justify-center space-y-4 '>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-center mx-auto">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-                                </svg>
+                            <>
+                                <div className='flex flex-col text-center justify-center space-y-4 '>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-center mx-auto">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                                    </svg>
 
-                                <Link href='/products' className='text-blue-500 underline'>Try add new one</Link></div>}
+                                    <Link href='/products' className='text-blue-500 underline' onClick={onClose}>Try add new one</Link></div>
+                            </>
+                        }
                         <button onClick={onClose} className='absolute right-5 top-5 text-primary border-none'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>

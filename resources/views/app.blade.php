@@ -8,6 +8,9 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="shortcut icon"
+          href=""
+          type="image/x-icon">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,600;0,700;0,800;1,700&display=swap"
           rel="stylesheet">

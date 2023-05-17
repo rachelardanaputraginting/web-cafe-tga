@@ -3,12 +3,13 @@ import { Head } from '@inertiajs/react';
 import App from '@/Layouts/App';
 import Container from '@/Components/Container';
 import Header from '@/Components/Header';
-import Navbar from '@/Layouts/Navbar';
 import ProductItem from '@/Components/ProductItem';
 import Pagination from '@/Components/Pagination';
 
 export default function Index(props) {
     const { data: products, meta, links } = props.products;
+
+
     return (
         <>
             <Head title="Our Products" />
@@ -28,7 +29,9 @@ export default function Index(props) {
                     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-10 gap-4'>
                         {
                             products.map(product => (
-                                <ProductItem product={product} key={product.slug}></ProductItem>
+                                <ProductItem product={product} key={product.slug}>
+
+                                </ProductItem>
                             ))
                         }
                     </div>
