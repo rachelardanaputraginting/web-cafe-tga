@@ -22,7 +22,6 @@ class ProductFactory extends Factory
             'name' => $name = str($this->faker->sentence(4))->title(),
             'slug' => str($name)->slug(),
             'price' => rand(10000, 90000),
-            'url' => $this->faker->url(),
             'description' => $this->faker->sentence(10)
         ];
     }

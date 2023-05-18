@@ -18,7 +18,7 @@ function CartDialog({ children, isOpen = false, onClose = false }) {
                 {/* Container to center the panel */}
                 <div className="flex min-h-auto items-center justify-center bg-primary">
                     {/* The actual dialog panel  */}
-                    <Dialog.Panel className="rounded min-h-auto bg-white absolute md:right-[350px] md:left-[350px] sm:right-[100px] p-4 top-40 sm:left-[100px]">
+                    <Dialog.Panel className="rounded min-h-auto bg-white absolute md:right-[350px] md:left-[350px] sm:right-[100px] p-4 top-8 sm:left-[100px]">
                         {children}
                     </Dialog.Panel>
                 </div>

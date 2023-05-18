@@ -16,12 +16,13 @@ class CartController extends Controller
         $product->carts()->updateOrCreate(
             [
                 "user_id" => $request->user()->id,
-                "product_id" => $product->id
+                "product_id" => $product->id,
             ],
             [
                 "user_id" => $request->user()->id,
-                "price" => $product->price,
-                "quantity" => $product->quantity
+                "product_id" => $product->id,
+                "quantity" => $product->quantity + 1,
+                "price" => $product->price * ($product->quantity + 1),
             ]
         );
 
@@ -31,9 +32,9 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $carts = Cart::query()
+            ->select('id', 'name', 'price', 'quantity')
             ->with('product')
             ->whereBelongsTo($request->user())->whereNull('paid_at')->get();
-        // return $carts;
         return inertia('Carts/Index', [
             "carts" => CartResource::collection($carts)
         ]);

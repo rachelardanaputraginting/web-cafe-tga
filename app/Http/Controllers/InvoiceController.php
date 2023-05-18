@@ -30,7 +30,6 @@ class InvoiceController extends Controller
 
             ]);
             // $invoice_order_id = Invoice::where('order_id', $order_id)->first();
-            dd($cart_ids);
             $invoice->update([
                 "succeeded_at" => now(),
             ]);
@@ -41,7 +40,7 @@ class InvoiceController extends Controller
                 'paid_at' => now(),
             ]);
         }
-        return to_route('invoice.show', $order_id);
+        return back();
     }
 
     public function show(Invoice $invoice)

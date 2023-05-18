@@ -13,7 +13,7 @@ export default function App(props) {
     const { delete: destroy } = useForm()
 
     const { children } = props;
-    const { carts_global, carts_global_count } = usePage().props
+    const { carts_global, carts_global_count, auth } = usePage().props
     let [isOpen, setIsOpen] = useState(false)
     const modalAdd = () => {
         setIsOpen(true);
@@ -30,8 +30,10 @@ export default function App(props) {
             }
         })
     }
+    console.log(carts_global);
     let total = 0;
     total > 0 ? carts_global.reduce((acc, cart) => acc + cart.price + cart.quantity, 0) : null;
+
 
 
 
@@ -53,16 +55,16 @@ export default function App(props) {
             </div>
             <>
                 <div>
-                    {carts_global.length ? <>
+                    {carts_global.length > 0 ? <>
                         <div className="fixed z-[9] left-0 top-20 right-0 bg-white text-center flex justify-end gap-10 pr-36">
-                            <div className='flex justify-start items-center left-5 sm:left-32 top-6 right-5 sm:right-32 absolute font-semibold text-lg text-primary'>Enjoy your order...</div>
-                            <div className='flex justify-end items-center py-5 left-5 sm:left-32 top-6 right-5 sm:right-32'>
+                            <div className='flex justify-start items-center left-5 sm:left-32 top-6 absolute font-semibold text-lg text-primary'>Enjoy your order...</div>
+                            <div className='flex justify-center items-center py-5 '>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
                                 </svg>
 
                             </div>
-                            <div className='flex justify-end items-center py-5 left-5 sm:left-5 top-6 right-5'>
+                            <div className='flex justify-center items-center py-5'>
                                 <button className="btn btn-primary flex items-center" onClick={modalAdd}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -75,10 +77,29 @@ export default function App(props) {
 
                         </div>
                     </> :
-                        <div className="white fixed z-[9] left-0 top-20 right-0 text-center flex justify-center gap-10 pr-36">
-                            <div className='flex items-center left-5 sm:left-32 top-6 right-5 sm:right-32 absolute font-semibold text-lg text-primary'>
-                                <marquee direction="scroll" width="100%">Welcome to in the TGA Cafe. Please login to run the application!</marquee>
-                            </div></div>}
+                        <div className="fixed z-[9] left-0 top-20 right-0 bg-white text-center flex justify-end gap-10 pr-36">
+                            <div className=' flex justify-center items-center py-5'>
+                                {auth.user ? <>
+                                    <button className="btn btn-primary flex items-center" onClick={modalAdd}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                        </svg>
+
+                                        <p className='text-xl ml-2 font-semibold text-primary'> {carts_global_count > 0 ? carts_global_count : null}</p>
+                                    </button>
+                                </> : <>
+                                    <button className="btn btn-primary flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                        </svg>
+
+                                        <p className='text-xl ml-2 font-semibold text-primary'> {carts_global_count > 0 ? carts_global_count : null}</p>
+                                    </button>
+                                </>}
+
+
+                            </div>
+                        </div>}
                 </div>
                 {children}
 
@@ -93,21 +114,28 @@ export default function App(props) {
                                     {carts_global.map((cart, i) => (
                                         <>
                                             <ul key={cart.id} className="mb-8 space-y-4 text-left text-gray-500 dark:text-gray-400">
-                                                <li className="flex items-start justify-between space-x-3">
+                                                <li className="w-full flex items-start justify-between space-x-3">
                                                     {/* Icon */}
-                                                    <img src={cart.product.picture} alt="" width='72' className='rounded w-18' />
+                                                    <div className='flex gap-3 w-1/2'>
+                                                        <img src={cart.product.picture} alt="" width='72' className='rounded w-18' />
+                                                        <div>
+                                                            <h3 className='font-semibold text-primary'>{cart.product.name}</h3>
+                                                            <span className='font-light mr-10 text-xs'>{cart.product.description}</span>
+                                                        </div>
+                                                    </div>
 
-                                                    <div className='flex justify-end gap-10'>
-                                                        <div className='flex flex-col justify-end'>
-                                                            <span className=' font-semibold'>{cart.product.name}</span>
-                                                            <p className='text-primary text-xl bg-black'></p>{cart.quantity}
-                                                            <span className='block text-right text-secondary font-semibold text-lg py-2'><sup>Rp. </sup>{numberFormat(cart.price, 0)}</span>
-                                                            <div className="mx-1 flex items-center justify-end mt-2 text-xl rounded">
-                                                                <Counter initialValue={1} />
+                                                    <div className='flex justify-end gap-10 w-1/2'>
+                                                        <div className='flex justify-end flex-col ml-auto gap-y-2'>
+                                                            <div className='text-primary gap-x-2 flex justify-end'>Price :
+                                                                Rp. {numberFormat(cart.product.price, 0)}
                                                             </div>
+                                                            <div className=' gap-x-2 flex justify-end'>Quantity :
+                                                                {` ` + cart.product.quantity}</div>
+                                                            <div className='text-primary font-semibold gap-x-2 flex flex-col justify-end '>Subtotal :
+                                                                Rp. {numberFormat(cart.price, 0)}</div>
                                                         </div>
                                                         <div>
-                                                            <button onClick={() => onDeleteHandler(cart)} className='focus:outline-none inline'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                            <button onClick={() => onDeleteHandler(cart)} className='focus:outline-none inline text-red-500'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                             </svg>
                                                             </button>

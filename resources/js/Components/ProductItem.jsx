@@ -14,7 +14,7 @@ export default function ProductItem({ product }) {
     return (
         <div className='mb-4 relative hover:scale-[102%] transition duration-300'>
             <Link href={`/products/${product.slug}`}>
-                <img className='w-full rounded-lg' src={product.picture} alt="" />
+                <img className='w-full rounded-lg h-2/3' src={product.picture} alt={product.name} />
             </Link>
             <div className="mt-4">
                 <Link className=' block-mb-2 line-clamp-1' href={`/products/${product.slug}`}>{product.name}</Link>

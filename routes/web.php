@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -26,6 +27,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('products', ProductController::class);
+
+Route::get('admin/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+Route::post('admin/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
+Route::get('admin/products/table', [AdminProductController::class, 'table'])->name('admin.products.table');
+Route::get('admin/products/show', [AdminProductController::class, 'show'])->name('admin.products.show');
+Route::get('admin/products/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
 
 Route::controller(CartController::class)->group(function () {
     Route::get('/carts', 'index')->name('cart.index');

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->double('price');
             $table->integer('quantity')->default(1);
-            $table->string('url');
             $table->text('description');
             $table->timestamps();
         });

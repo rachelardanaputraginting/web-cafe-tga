@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
+use Illuminate\Support\Str;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -58,9 +59,13 @@ class HandleInertiaRequests extends Middleware
                     ->get()->map(fn ($q) => [
                         "id" => $q->id,
                         "price" => $q->price,
+                        "quantity" => $q->quantity,
                         "product" => [
                             "name" => $q->product->name,
                             "slug" => $q->product->slug,
+                            "quantity" => $q->product->quantity,
+                            "price" => $q->product->price,
+                            "description" => Str::limit($q->product->description, 120, '...'),
                             "picture" => $q->product->picture ? Storage::url($q->product->picture) : 'https://fakeimg.pl/200x320/?text=Cafe&font=noto',
                         ]
                     ])) : 0,

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductTableResource;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,9 +14,27 @@ class AdminProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public $categories;
+
+    public function __construct()
     {
-        //
+        $this->categories = Category::select('id', 'name')->get();
+    }
+
+    public function table(Request $request)
+    {
+        $products = Product::query()
+            ->with([
+                "category" => fn ($query) => $query->select('name', 'slug', 'id'),
+            ])
+            ->latest()
+            ->paginate(10);
+
+        // return ArticleTableResource::collection($products);
+
+        return inertia('Admin/Products/Table', [
+            "products" => ProductTableResource::collection($products),
+        ]);
     }
 
     /**
@@ -22,9 +42,12 @@ class AdminProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
-        //
+        return inertia('Admin/Products/Create', [
+            "categories" => $this->categories,
+        ]);
     }
 
     /**
@@ -35,7 +58,18 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $picture = $request->file('picture');
+        Product::create([
+            "name" => $name = $request->name,
+            "slug" => $slug = str($name)->slug(),
+            "category_id" => $request->category_id,
+            "price" => $request->price,
+            "quantity" => $request->quantity,
+            "description" => $request->description,
+            "picture" => $request->hasFile('picture') ? $picture->storeAs('images/products', $slug . '.' . $picture->extension()) : null
+        ]);
+
+        return back();
     }
 
     /**
