@@ -22,6 +22,9 @@ export default function ProductItem({ product }) {
                 <div className="flex items-center justify-end my-3">
                     <div className='font-semibold text-lg text-third'><sup>Rp.</sup> {numberFormat(product.price)}</div>
                 </div>
+                <div className="flex items-center justify-end my-3">
+                    <div className='font-semibold text-lg text-third'>{numberFormat(product.quantity)}</div>
+                </div>
 
                 <Button href='/invoice' onClick={addToCart} className='items-center gap-2 bg-primary -mt-2 w-full'>Add to cart
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

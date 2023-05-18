@@ -21,13 +21,22 @@ export default function Navbar() {
                 </button>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-multi-level">
                     <ul className="flex bg-primary flex-col font-medium p-4 items-center md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <NavLink href='/'>Home</NavLink>
-                        <NavLink href='/products'>Products</NavLink>
-                        <DropdownMenu label={`Categories`}>
-                            {categories_global.map(category => (
-                                <DropdownMenu.Links key={category.slug} href={`/products?category=${category.slug}`}>{category.name}</DropdownMenu.Links>
-                            ))}
-                        </DropdownMenu>
+                        {auth.user ? <>
+                            <NavLink href='/'>Home</NavLink>
+                            <NavLink href='/products'>Products</NavLink>
+                            <DropdownMenu label={`Categories`}>
+                                {categories_global.length > 0 ?
+                                    <>
+                                        {
+                                            categories_global.map(category => (
+                                                <DropdownMenu.Links key={category.slug} href={`/products?category=${category.slug}`}>{category.name}</DropdownMenu.Links>
+                                            ))
+                                        }
+                                    </> : null
+                                }
+                            </DropdownMenu>
+                        </>
+                            : null}
                         {auth.user ? (<>
                             <DropdownMenu label={auth.user.name}>
 
@@ -50,7 +59,7 @@ export default function Navbar() {
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav >
 
     )
 }

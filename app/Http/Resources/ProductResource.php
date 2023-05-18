@@ -18,6 +18,7 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'price' => $this->price,
+            'quantity' => $this->quantity,
             'slug' => $this->slug,
             'name' => $this->name,
             'picture' => $this->picture ? Storage::url($this->picture) : 'https://fakeimg.pl/200x320/?text=Cafe&font=noto',

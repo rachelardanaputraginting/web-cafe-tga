@@ -45,15 +45,16 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
-            'categories_global' => Cache::rememberForever('categories_global', fn () => Category::whereHas('products')->get()->map(fn ($q) => [
+            'categories_global' => $request->user() ? Cache::rememberForever('categories_global', fn () => Category::whereHas('products')->get()->map(fn ($q) => [
                 "name" => $q->name,
                 "slug" => $q->slug,
-            ])),
+            ])) : 0,
 
             'carts_global' => $request->user() ?
                 Cache::rememberForever('carts_global', fn () => Cart::query()
                     ->with('product')
                     ->whereBelongsTo($request->user())
+                    ->whereNull('paid_at')
                     ->get()->map(fn ($q) => [
                         "id" => $q->id,
                         "price" => $q->price,
@@ -62,7 +63,7 @@ class HandleInertiaRequests extends Middleware
                             "slug" => $q->product->slug,
                             "picture" => $q->product->picture ? Storage::url($q->product->picture) : 'https://fakeimg.pl/200x320/?text=Cafe&font=noto',
                         ]
-                    ])) : null,
+                    ])) : 0,
             'carts_global_count' => $cart_global_count,
         ]);
     }

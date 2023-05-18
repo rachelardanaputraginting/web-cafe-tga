@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,11 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/carts', 'index')->name('cart.index');
     Route::delete('/carts/delete/{cart}', 'destroy')->name('cart.delete');
     Route::post('/carts/add_to_cart/{product:slug}', 'store')->name('cart.store');
+});
+
+Route::controller(InvoiceController::class)->middleware('auth')->group(function () {
+    Route::post('/invoice', 'store')->name('invoice.store');
+    Route::get('/invoice/{invoice:order_id}', 'show')->name('invoice.show');
 });
 
 Route::middleware('auth')->group(function () {
