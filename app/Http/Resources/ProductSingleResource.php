@@ -18,7 +18,6 @@ class ProductSingleResource extends JsonResource
         return [
             'id' => $this->id,
             'price' => $this->price,
-            'quantity' => $this->quantity,
             'slug' => $this->slug,
             'name' => $this->name,
             'description' => $this->description,

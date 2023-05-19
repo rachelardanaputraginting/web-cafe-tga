@@ -36,11 +36,6 @@ export default function ProductForm({ data, setData }) {
                 {errors.price ? <Error className='' value={errors.price} /> : null}
             </div>
             <div className="mb-6">
-                <InputLabel htmlFor="quantity" value="Quantity" />
-                <Input name='quantity' id='quantity' onChange={onChange} value={data.quantity} />
-                {errors.quantity ? <Error className='' value={errors.quantity} /> : null}
-            </div>
-            <div className="mb-6">
                 <InputLabel htmlFor="description" value="Description" />
                 <Textarea name='description' id='description' onChange={onChange} value={data.description} />
                 {errors.description ? <Error className='' value={errors.description} /> : null}

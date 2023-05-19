@@ -9,22 +9,22 @@ import ProductForm from '@/Components/ProductForm';
 
 export default function Products() {
 
-    const { data, setData } = useForm({
+    const { data, setData, post } = useForm({
         name: '',
         price: '',
-        quantity: '',
-        teaser: '',
         category_id: '',
-        body: '',
+        description: '',
         picture: '',
     })
 
 
     const onSubmit = (e) => {
         e.preventDefault();
-        Inertia.post(route('admin.products.store'), {
+        post(route('admin.products.store'), {
             ...data,
             category_id: data.category_id.id,
+        }, {
+            onSuccess: () => toast.success('Product has been created!')
         })
     }
     return (

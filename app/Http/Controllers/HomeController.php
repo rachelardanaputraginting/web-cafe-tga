@@ -14,7 +14,7 @@ class HomeController extends Controller
         $products = Product::query()
             ->with('category')
             ->when($request->category, fn ($q, $v) => $q->whereBelongsTo(Category::where('slug', $v)->first()))
-            ->select('id', 'price', 'slug', 'name', 'picture', 'quantity', 'category_id')
+            ->select('id', 'price', 'slug', 'name', 'picture', 'category_id')
             ->limit(8)
             ->latest()
             ->get();

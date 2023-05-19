@@ -5,8 +5,10 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { Toaster, toast } from 'react-hot-toast';
 import { numberFormat } from '@/Libs/Helper';
 import Footer from '@/Components/Footer';
-import Counter from '@/Components/Counter';
 import NavLink from '@/Components/NavLink';
+import Html5QrcodePlugin from '@/Components/Scan';
+import ResultContainerPlugin from '@/Components/ResultContainerPlugin';
+import Container from '@/Components/Container';
 
 export default function App(props) {
     // const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -33,12 +35,52 @@ export default function App(props) {
     console.log(carts_global);
     let total = carts_global.reduce((acc, cart) => acc + cart.price + cart.quantity, 0);
 
+    const { post } = useForm()
+    const addToCart = () => {
 
+    }
 
+    const [decodedResults, setDecodedResults] = useState([]);
+    const onNewScanResult = (decodedText, decodedResult) => {
+        console.log("App [result]", decodedResult);
+        post(route('cart.store', product), {
+            onSuccess: () => toast.success('Added to cart'),
+        });
+        setDecodedResults(prev => [...prev, decodedResult]);
+    };
+
+    const scan = document.querySelector("#scan");
+
+    const show = () => {
+        scan.classList.add('block');
+        scan.classList.remove('hidden');
+    }
+
+    const hidden = () => {
+        scan.classList.add('hidden');
+        scan.classList.remove('block');
+    }
 
     return (
         <div className="min-h-screen">
             <Navbar />
+            <section className="mt-48 w-1/4 order-last hidden border border-primary shadow text-primary p-5 mx-auto -mb-10 rounded-lg" id="scan">
+                <button className="btn btn-primary items-center ml-auto block mb-4" onClick={hidden}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-primary">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+
+                </button>
+                <Html5QrcodePlugin
+                    className="rounded-lg bg-primary"
+                    fps={10}
+                    qrbox={250}
+                    disableFlip={false}
+                    qrCodeSuccessCallback={onNewScanResult}
+                />
+                <ResultContainerPlugin results={decodedResults} />
+
+            </section>
             <div>
                 <Toaster toastOptions={{
                     className: 'z-[99999]',
@@ -75,10 +117,22 @@ export default function App(props) {
                             </div>
 
                         </div>
+
                     </> :
                         <div className="fixed z-[9] left-0 top-20 right-0 bg-white text-center flex justify-end gap-10 pr-36">
-                            <div className=' flex justify-center items-center py-5'>
+                            <div className=' flex justify-center items-center py-5 gap-5'>
                                 {auth.user ? <>
+
+
+
+                                    <button className="btn btn-primary items-center" onClick={show}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" />
+                                        </svg>
+
+                                    </button>
+
                                     <button className="btn btn-primary flex items-center" onClick={modalAdd}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -86,6 +140,7 @@ export default function App(props) {
 
                                         <p className='text-xl ml-2 font-semibold text-primary'> {carts_global_count > 0 ? carts_global_count : null}</p>
                                     </button>
+
                                 </> : <>
                                     <button className="btn btn-primary flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-primary">
@@ -102,6 +157,7 @@ export default function App(props) {
                 </div>
                 {children}
 
+
                 <CartDialog isOpen={isOpen} onClose={setIsOpen}>
                     <>
                         <CartDialog.Title title={carts_global.length > 0 ? 'Complete your cart' : 'The cart is currently empty.'}>
@@ -110,6 +166,7 @@ export default function App(props) {
                         {carts_global ?
                             <>
                                 <div>
+
                                     {carts_global.map((cart, i) => (
                                         <>
                                             <ul key={cart.id} className="mb-8 space-y-4 text-left text-gray-500 dark:text-gray-400">

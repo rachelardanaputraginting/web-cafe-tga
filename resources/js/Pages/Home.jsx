@@ -12,8 +12,7 @@ export default function Home({ products, ...props }) {
     return (
         <>
             <Head title="Home" />
-
-            <Header>
+            <Header className='order-first'>
                 <Header.Title>
                     TGA Cafe
                 </Header.Title>

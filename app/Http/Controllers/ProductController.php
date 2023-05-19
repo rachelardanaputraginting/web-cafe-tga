@@ -20,7 +20,7 @@ class ProductController extends Controller
         $products = Product::query()
             ->with('category')
             ->when($request->category, fn ($q, $v) => $q->whereBelongsTo(Category::where('slug', $v)->first()))
-            ->select('name', 'slug', 'category_id', 'price', 'quantity', 'picture')
+            ->select('name', 'slug', 'category_id', 'price', 'picture')
             ->latest()
             ->paginate(12)
             ->withQueryString();

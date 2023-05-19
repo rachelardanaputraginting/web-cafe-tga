@@ -61,16 +61,15 @@ class AdminProductController extends Controller
     {
         $picture = $request->file('picture');
         Product::create([
-            "name" => $name = $request->name,
-            "slug" => $slug = str($name)->slug(),
-            "category_id" => $request->category_id,
+            "name" => $request->name,
+            "slug" => $slug = str($request->name . '-' .  rand(10, 100))->slug(),
+            "category_id" => $request->category_id['id'],
             "price" => $request->price,
-            "quantity" => $request->quantity,
             "description" => $request->description,
             "picture" => $request->hasFile('picture') ? $picture->storeAs('images/products', $slug . '.' . $picture->extension()) : null
         ]);
 
-        return back();
+        return to_route('admin.products.table');
     }
 
     /**
@@ -92,7 +91,12 @@ class AdminProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return inertia('Admin/Products/Edit', [
+            "product" => $product->load([
+                'category' => fn ($query) => $query->select('id', 'name')
+            ]),
+            "categories" => $this->categories,
+        ]);
     }
 
     /**
@@ -104,7 +108,17 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $picture = $request->file('picture');
+        $product->update([
+            "name" => $request->name,
+            "slug" => str($request->name . '-' .  rand(10, 100))->slug(),
+            "category_id" => $request->category_id['id'],
+            "price" => $request->price,
+            "description" => $request->description,
+            "picture" => $request->hasFile('picture') ? $picture->storeAs('images/products', $product->slug . '.' . $picture->extension()) : $product->picture
+        ]);
+
+        return to_route('admin.products.table');
     }
 
     /**

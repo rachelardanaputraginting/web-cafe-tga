@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScanController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,11 +28,15 @@ Route::get('/dashboard', function () {
 
 Route::resource('products', ProductController::class);
 
+Route::get('scan', [ScanController::class, 'index'])->name('scan.index');
+
+
 Route::get('admin/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
 Route::post('admin/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
 Route::get('admin/products/table', [AdminProductController::class, 'table'])->name('admin.products.table');
 Route::get('admin/products/show/{product:slug}', [AdminProductController::class, 'show'])->name('admin.products.show');
 Route::get('admin/products/edit/{product:slug}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+Route::put('admin/products/update/{product:slug}', [AdminProductController::class, 'update'])->name('admin.products.update');
 Route::delete('admin/products/destroy/{product:slug}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 
 Route::controller(CartController::class)->group(function () {

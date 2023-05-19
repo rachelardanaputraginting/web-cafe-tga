@@ -15,17 +15,16 @@ export default function ProductTable(props) {
         <Container>
             <Head title='Table' />
             <div className="flex text-secondary mt-48 gap-4 items-center">
-                <div><Link href={`/admin.products.create`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Add</Link></div>
+                <div><Link href={`/admin/products/create`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Add</Link></div>
                 <div><Button className='bg-secondary'>Generate QR Code </Button></div>
             </div>
-            <Table>
+            <Table className='w-full'>
                 <Table.Thead>
                     <tr>
                         <Table.Th>#</Table.Th>
                         <Table.Th>Picture</Table.Th>
                         <Table.Th>Name</Table.Th>
                         <Table.Th>Price</Table.Th>
-                        <Table.Th>Quantity</Table.Th>
                         <Table.Th>Category</Table.Th>
                         <Table.Th>Description</Table.Th>
                         <Table.Th>Action</Table.Th>
@@ -46,9 +45,6 @@ export default function ProductTable(props) {
                                 </Table.Td>
                                 <Table.Td>
                                     <div>Rp. {numberFormat(product.price)}</div>
-                                </Table.Td>
-                                <Table.Td>
-                                    <div>{numberFormat(product.quantity)}</div>
                                 </Table.Td>
                                 <Table.Td>
                                     <Link href={product.category.url}>{product.category.name}</Link>

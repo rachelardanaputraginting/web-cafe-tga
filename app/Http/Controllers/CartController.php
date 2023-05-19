@@ -16,15 +16,22 @@ class CartController extends Controller
         $product->carts()->updateOrCreate(
             [
                 "user_id" => $request->user()->id,
-                "product_id" => $product->id,
+                "product_id" => $product->id
             ],
             [
                 "user_id" => $request->user()->id,
-                "product_id" => $product->id,
-                "quantity" => $product_total = $product->quantity = null ? $product->quantity : $product->quantity + 1,
-                "price" => $product->quantity >= 1 ? $product->price * $product_total : $product->price,
+                "price" => $product->price,
             ]
         );
+
+        $cart = Cart::where('user_id', $request->user()->id)->where('product_id', $product->id)->whereNull('paid_at')->first();
+
+        if ($cart->quantity >= 0) {
+            $cart->update([
+                "quantity" => ++$cart->quantity,
+                "price" => $cart->price * $cart->quantity,
+            ]);
+        }
 
         return redirect()->back();
     }
