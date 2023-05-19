@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductTableResource extends JsonResource
 {
@@ -21,7 +22,7 @@ class ProductTableResource extends JsonResource
             'quantity' => $this->quantity,
             'slug' => $this->slug,
             'name' => $this->name,
-            'description' => $this->description,
+            'description' => Str::limit($this->description, 40, '...'),
             'picture' => $this->picture ? Storage::url($this->picture) : 'https://fakeimg.pl/200x320/?text=Cafe&font=noto',
             'category' => [
                 'id' => $this->category->id,

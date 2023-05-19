@@ -21,8 +21,8 @@ class CartController extends Controller
             [
                 "user_id" => $request->user()->id,
                 "product_id" => $product->id,
-                "quantity" => $product->quantity + 1,
-                "price" => $product->price * ($product->quantity + 1),
+                "quantity" => $product_total = $product->quantity = null ? $product->quantity : $product->quantity + 1,
+                "price" => $product->quantity >= 1 ? $product->price * $product_total : $product->price,
             ]
         );
 

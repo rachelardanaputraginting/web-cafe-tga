@@ -43,6 +43,7 @@ export default function Navbar() {
                                 <DropdownMenu.Links href='/profile'>{auth.user.name}</DropdownMenu.Links>
                                 <DropdownMenu.Divider />
                                 <DropdownMenu.Links href='/dashboard'>Dashboard</DropdownMenu.Links>
+                                <DropdownMenu.Links href={route('admin.products.table')}>Products Table</DropdownMenu.Links>
                                 <DropdownMenu.Links href={route('admin.products.create')}>Create Product</DropdownMenu.Links>
                                 <DropdownMenu.Links href='/logout' method="post">Logout</DropdownMenu.Links>
                             </DropdownMenu>

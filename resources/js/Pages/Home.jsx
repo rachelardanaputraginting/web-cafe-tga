@@ -37,7 +37,7 @@ export default function Home({ products, ...props }) {
 
                                     }
                                 </div>
-                                <Link className="text-secondary underline text-center w-full block mt-10" href={route('products.index')}>Show more articles.</Link>
+                                <Link className="text-secondary underline text-center w-full block mt-10" href={route('products.index')}>Show more products.</Link>
                             </>
                             : <p>No item yet!</p>
                     }

@@ -20,7 +20,6 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('name');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -31,8 +30,9 @@ Route::resource('products', ProductController::class);
 Route::get('admin/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
 Route::post('admin/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
 Route::get('admin/products/table', [AdminProductController::class, 'table'])->name('admin.products.table');
-Route::get('admin/products/show', [AdminProductController::class, 'show'])->name('admin.products.show');
-Route::get('admin/products/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+Route::get('admin/products/show/{product:slug}', [AdminProductController::class, 'show'])->name('admin.products.show');
+Route::get('admin/products/edit/{product:slug}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+Route::delete('admin/products/destroy/{product:slug}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 
 Route::controller(CartController::class)->group(function () {
     Route::get('/carts', 'index')->name('cart.index');
@@ -46,6 +46,8 @@ Route::controller(InvoiceController::class)->middleware('auth')->group(function 
 });
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/', [HomeController::class, 'index'])->name('name');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

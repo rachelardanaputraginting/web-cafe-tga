@@ -1,66 +1,137 @@
-import clsx from "clsx"
+import { Menu } from '@headlessui/react';
+import { Link } from '@inertiajs/react';
+import clsx from 'clsx';
 
-function Table({ children }) {
+const Table = ({ children, className = '' }) => {
     return (
-        <div className="relative bg-white overflow-x-auto mt-48 w-full">
-            <table className="w-full text-sm text-left text-gray-500 ">
-                {children}
-            </table>
-        </div >
+        <div className={clsx(className, 'flex flex-col mt-4')}>
+            <div className="overflow-x-auto">
+                <div className="inline-block min-w-full align-middle">
+                    <table className="min-w-full divide-y divide-gray-200">
+                        {children}
+                    </table>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-    )
-}
+const Thead = ({ className, children }) => {
+    return (
+        <thead className={className}>{children}</thead>
+    );
+};
 
-function Thead({ children }) {
+const Tbody = ({ children }) => {
     return (
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            {children}
-        </thead>
-    )
-}
-function Th({ className, children }) {
-    return (
-        <th scope="col" className={clsx('px-4 py-3', className)}>
-            {children}
-        </th>
-    )
-}
-function Tbody({ children }) {
-    return (
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="divide-y divide-gray-200 bg-white">
             {children}
         </tbody>
-    )
-}
-function Td({ className, children }) {
+    );
+};
+
+const Td = ({ className = '', children, ...props }) => {
     return (
-        <td className={clsx('px-4 py-3 whitespace-nowrap', className)}>
+        <td
+            {...props}
+            className={clsx(className, 'whitespace-nowrap px-6 py-4')}
+        >
             {children}
         </td>
-    )
-}
-function Empty({ colSpan, message = 'The item is empty!' }) {
+    );
+};
+
+const Th = ({ className, children }) => {
     return (
-        <tr>
-            <td colspan={colSpan}>
-                <div className="flex items-center justify-center h-96">
-                    <div className="text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 inline">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-                        </svg>
-                        <div className="mt-5">
-                            {message}
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    )
-}
+        <th
+            scope="col"
+            className={clsx(
+                className,
+                'whitespace-nowrap px-6 py-3 text-left text-sm font-semibold text-black'
+            )}
+        >
+            {children}
+        </th>
+    );
+};
+
+const DropdownItem = ({ children, className = '', ...props }) => {
+    return (
+        <Menu.Item>
+            {({ active }) => (
+                <Link
+                    {...props}
+                    preserveScroll
+                    className={clsx(
+                        className,
+                        active
+                            ? 'bg-gray-50 text-black'
+                            : 'bg-white text-black',
+                        'block w-full py-2 px-4 text-left text-xs font-medium text-black hover:bg-blue-50 hover:text-blue-600'
+                    )}
+                >
+                    {children}
+                </Link>
+            )}
+        </Menu.Item>
+    );
+};
+
+const DropdownButton = ({ className, ...props }) => {
+    return (
+        <Menu.Item>
+            {({ active }) => (
+                <button
+                    {...props}
+                    className={clsx(
+                        className,
+                        active
+                            ? 'bg-gray-50 text-black'
+                            : 'bg-white text-black',
+                        'block w-full py-2 px-4 text-left text-xs font-medium text-black hover:bg-blue-50 hover:text-blue-600'
+                    )}
+                >
+                    {props.children}
+                </button>
+            )}
+        </Menu.Item>
+    );
+};
+
+const Dropdown = ({ className, children }) => {
+    return (
+        <div className="relative">
+            <Menu>
+                <Menu.Button>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="inline h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                        />
+                    </svg>
+                </Menu.Button>
+                <Menu.Items className="absolute top-0 right-7 z-10 w-56 divide-y overflow-hidden rounded-md border bg-white py-0.5 text-left shadow-sm">
+                    {children}
+                </Menu.Items>
+            </Menu>
+        </div>
+    );
+};
 
 Table.Thead = Thead;
-Table.Th = Th;
 Table.Tbody = Tbody;
 Table.Td = Td;
-Table.Empty = Empty;
+Table.Th = Th;
+Table.Dropdown = Dropdown;
+Table.DropdownItem = DropdownItem;
+Table.DropdownButton = DropdownButton;
+
 export default Table;

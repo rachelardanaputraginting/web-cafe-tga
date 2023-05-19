@@ -6,6 +6,7 @@ use App\Http\Resources\ProductTableResource;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminProductController extends Controller
 {
@@ -114,6 +115,11 @@ class AdminProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if ($product->picture) {
+            Storage::delete($product->picture);
+        }
+
+        $product->delete();
+        return back();
     }
 }

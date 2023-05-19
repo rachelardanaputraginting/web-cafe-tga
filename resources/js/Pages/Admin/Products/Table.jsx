@@ -1,8 +1,10 @@
+import Button from '@/Components/Button';
 import Container from '@/Components/Container';
 import Pagination from '@/Components/Pagination';
 import Table from '@/Components/Table';
 import useSwal from '@/Hooks/useSwal';
 import App from '@/Layouts/App';
+import { numberFormat } from '@/Libs/Helper';
 import { Head, Link } from '@inertiajs/react';
 import React from 'react'
 
@@ -12,6 +14,10 @@ export default function ProductTable(props) {
     return (
         <Container>
             <Head title='Table' />
+            <div className="flex text-secondary mt-48 gap-4 items-center">
+                <div><Link href={`/admin.products.create`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Add</Link></div>
+                <div><Button className='bg-secondary'>Generate QR Code </Button></div>
+            </div>
             <Table>
                 <Table.Thead>
                     <tr>
@@ -22,7 +28,7 @@ export default function ProductTable(props) {
                         <Table.Th>Quantity</Table.Th>
                         <Table.Th>Category</Table.Th>
                         <Table.Th>Description</Table.Th>
-                        <th></th>
+                        <Table.Th>Action</Table.Th>
                     </tr>
                 </Table.Thead>
                 <Table.Tbody>
@@ -31,12 +37,26 @@ export default function ProductTable(props) {
                             <tr key={product.id}>
                                 <Table.Td>{meta.from + i}</Table.Td>
                                 <Table.Td>
-                                    <Link href={product.url}>{product.title}</Link>
+                                    <div>
+                                        <img src={product.picture} alt="" width={`50`} className='rounded' />
+                                    </div>
+                                </Table.Td>
+                                <Table.Td>
+                                    <div>{product.name}</div>
+                                </Table.Td>
+                                <Table.Td>
+                                    <div>Rp. {numberFormat(product.price)}</div>
+                                </Table.Td>
+                                <Table.Td>
+                                    <div>{numberFormat(product.quantity)}</div>
                                 </Table.Td>
                                 <Table.Td>
                                     <Link href={product.category.url}>{product.category.name}</Link>
                                 </Table.Td>
-                                {/* <Table.Td>
+                                <Table.Td>
+                                    <div>{product.description}</div>
+                                </Table.Td>
+                                <Table.Td>
                                     <Table.Dropdown>
                                         <Table.DropdownItem href={route('admin.products.show', product.slug)}>View</Table.DropdownItem>
                                         <Table.DropdownItem href={route('admin.products.edit', product.slug)}>Edit</Table.DropdownItem>
@@ -48,7 +68,7 @@ export default function ProductTable(props) {
                                             })
                                         }} className='hover:bg-rose-50 hover:text-rose-500'>Delete</Table.DropdownButton>
                                     </Table.Dropdown>
-                                </Table.Td> */}
+                                </Table.Td>
                             </tr>
                         ))
                         :

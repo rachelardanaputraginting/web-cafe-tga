@@ -31,8 +31,7 @@ export default function App(props) {
         })
     }
     console.log(carts_global);
-    let total = 0;
-    total > 0 ? carts_global.reduce((acc, cart) => acc + cart.price + cart.quantity, 0) : null;
+    let total = carts_global.reduce((acc, cart) => acc + cart.price + cart.quantity, 0);
 
 
 
@@ -130,7 +129,7 @@ export default function App(props) {
                                                                 Rp. {numberFormat(cart.product.price, 0)}
                                                             </div>
                                                             <div className=' gap-x-2 flex justify-end'>Quantity :
-                                                                {` ` + cart.product.quantity}</div>
+                                                                {` ` + cart.quantity}</div>
                                                             <div className='text-primary font-semibold gap-x-2 flex flex-col justify-end '>Subtotal :
                                                                 Rp. {numberFormat(cart.price, 0)}</div>
                                                         </div>

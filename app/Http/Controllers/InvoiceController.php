@@ -27,11 +27,11 @@ class InvoiceController extends Controller
                 'order_id' => $order_id,
                 'total_price' => $total,
                 'card_ids' => $cart_ids,
-
             ]);
             // $invoice_order_id = Invoice::where('order_id', $order_id)->first();
             $invoice->update([
                 "succeeded_at" => now(),
+                'status' => 1,
             ]);
 
 
