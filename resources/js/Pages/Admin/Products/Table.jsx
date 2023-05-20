@@ -1,4 +1,5 @@
 import Container from '@/Components/Container';
+import NavLink from '@/Components/NavLink';
 import Pagination from '@/Components/Pagination';
 import Table from '@/Components/Table';
 import useSwal from '@/Hooks/useSwal';
@@ -17,7 +18,7 @@ export default function ProductTable(props) {
             <Head title='Table' />
             <div className="flex text-secondary mt-48 gap-4 items-center">
                 <div><Link href={`/admin/products/create`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Add</Link></div>
-                <div><Link href={`/admin/products/qrcode`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Generate QR Code</Link></div>
+                <div><Link href={`/admin/products/qrcode`} target="_blank" className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Generate QR Code</Link></div>
             </div>
             <Table className='w-full'>
                 <Table.Thead>

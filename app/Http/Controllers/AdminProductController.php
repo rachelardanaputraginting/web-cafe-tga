@@ -44,17 +44,19 @@ class AdminProductController extends Controller
         $data = Product::all();
         // dd($data);
         $qrCodes = [];
+        $name = Product::select('name', 'description', 'price')->get();
 
         foreach ($data as $item) {
             if ($item->slug) {
-                $qrCode = QrCode::size(300)->generate($item->slug);
+                $qrCode = QrCode::size(320)->generate($item->slug);
                 $qrCodes[] = $qrCode->toHtml();
             }
         }
 
-        // dd($qrCodes);
-
-        return inertia('Admin/Products/QRCode', ['qrCodes' => $qrCodes]);
+        return inertia('Admin/Products/QRCode', [
+            'qrCodes' => $qrCodes,
+            'names' => $name
+        ]);
     }
 
     /**
