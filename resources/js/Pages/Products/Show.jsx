@@ -19,10 +19,10 @@ export default function Show({ product }) {
                             <Link className='text-xs font-semibold px-2 py-1 w-auto bg-blue-500 text-white rounded' href={`/products?category=${product.category.slug}`}>{product.category.name}</Link>
                         </div>
                         <h1 className='text-3xl font-semibold'>{product.name}</h1>
-                        <div className='leading-relaxed text-gray-500 my-4'>{product.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat accusantium odio necessitatibus incidunt ipsum deserunt pariatur mollitia illum qui reprehenderit. Excepturi delectus odit porro necessitatibus rem eligendi minima modi eos, doloremque, soluta temporibus aliquam animi similique dicta neque nostrum recusandae asperiores molestias in illum non totam distinctio? Ut laborum magnam quidem accusamus neque. Officia doloremque saepe eius nostrum, officiis repellendus, dolores id esse accusantium qui soluta, iure itaque fugiat deleniti. Ex dolorum rerum inventore, et harum expedita quas nostrum laboriosam neque aut officiis assumenda iure facere labore maxime deserunt officia asperiores nesciunt id a fuga sed eum hic animi! Reiciendis? </div>
+                        <div className='leading-relaxed text-gray-500 my-4'>{product.description} </div>
                         <div className='font-semibold text-4xl'><sup>Rp</sup> {numberFormat(product.price)}</div>
 
-                        <Button className='mt-20'>Add to cart</Button>
+                        <Link href='/products' className='mt-20 block max-w-auto underline text-secondary'>Back</Link>
                     </div>
                 </div>
             </Container>

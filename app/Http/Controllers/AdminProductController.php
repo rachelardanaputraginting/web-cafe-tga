@@ -48,7 +48,7 @@ class AdminProductController extends Controller
 
         foreach ($data as $item) {
             if ($item->slug) {
-                $qrCode = QrCode::size(320)->generate($item->slug);
+                $qrCode = QrCode::size(120)->generate($item->slug);
                 $qrCodes[] = $qrCode->toHtml();
             }
         }

@@ -16,9 +16,16 @@ export default function ProductTable(props) {
     return (
         <Container>
             <Head title='Table' />
-            <div className="flex text-secondary mt-48 gap-4 items-center">
-                <div><Link href={`/admin/products/create`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Add</Link></div>
-                <div><Link href={`/admin/products/qrcode`} target="_blank" className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Generate QR Code</Link></div>
+            <div className="flex text-secondary mt-48 gap-5 items-center">
+                <div><Link href={`/admin/products/create`} className='inline-flex items-center gap-3 text-center justify-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-primary transition ease-in-out duration-150'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                    Add</Link></div>
+                <div><Link href={`/admin/products/qrcode`} target="_blank" className='inline-flex gap-3 items-center text-center justify-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-secondary transition ease-in-out duration-150'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" />
+                </svg>
+                    Generate QR Code</Link></div>
             </div>
             <Table className='w-full'>
                 <Table.Thead>
@@ -56,7 +63,7 @@ export default function ProductTable(props) {
                                 </Table.Td>
                                 <Table.Td>
                                     <Table.Dropdown>
-                                        <Table.DropdownItem href={route('admin.products.show', product.slug)}>View</Table.DropdownItem>
+                                        <Table.DropdownItem href={route('products.show', product.slug)}>View</Table.DropdownItem>
                                         <Table.DropdownItem href={route('admin.products.edit', product.slug)}>Edit</Table.DropdownItem>
                                         <Table.DropdownButton onClick={() => {
                                             ask({

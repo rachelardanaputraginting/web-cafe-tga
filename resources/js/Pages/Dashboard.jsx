@@ -5,7 +5,8 @@ import Header from '@/Components/Header';
 import Container from '@/Components/Container';
 import Grid from '@/Components/Grid';
 import Panel from '@/Components/Panel';
-export default function Dashboard() {
+export default function Dashboard({ product, cart, invoice }) {
+
     return (
         <>
             <Head title="Dashboard" />
@@ -30,7 +31,7 @@ export default function Dashboard() {
                         </div>
                         <div className="flex flex-col justify-evenly bg-white border w-3/4 h-full p-4 rounded-r-md">
                             <h2 className='text-lg text-slate-600 font-semibold'>Product</h2>
-                            <h1 className='text-5xl text-third font-bold'>10</h1>
+                            <h1 className='text-5xl text-third font-bold'>{product ? product : 0}</h1>
 
                         </div>
                     </div>
@@ -41,8 +42,8 @@ export default function Dashboard() {
                             </svg>
                         </div>
                         <div className="flex flex-col justify-evenly bg-white border w-3/4 h-full p-4 rounded-r-md">
-                            <h2 className='text-lg text-slate-600 font-semibold'>Carts</h2>
-                            <h1 className='text-5xl text-third font-bold'>10</h1>
+                            <h2 className='text-lg text-slate-600 font-semibold'>Cart</h2>
+                            <h1 className='text-5xl text-third font-bold'>{cart ? cart : 0}</h1>
 
                         </div>
                     </div>
@@ -54,8 +55,7 @@ export default function Dashboard() {
                         </div>
                         <div className="flex flex-col justify-evenly bg-white border w-3/4 h-full p-4 rounded-r-md">
                             <h2 className='text-lg text-slate-600 font-semibold'>Invoice</h2>
-                            <h1 className='text-5xl text-third font-bold'>10</h1>
-
+                            <h1 className='text-5xl text-third font-bold'>{invoice ? invoice : 0}</h1>
                         </div>
                     </div>
                 </Grid>
