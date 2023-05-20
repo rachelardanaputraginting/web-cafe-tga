@@ -43,10 +43,16 @@ class InvoiceController extends Controller
         return back();
     }
 
-    public function show(Invoice $invoice)
+    public function invoice()
     {
-        return inertia('Invoice/Show', [
-            "invoice" => new InvoiceResource($invoice),
+        $invoice = Invoice::query()
+            ->where('user_id', Auth::user()->id)
+            ->select('user_id', 'total_price', 'card_ids', 'order_id', 'succeeded_at')
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+        return inertia('Invoices/Table', [
+            'invoices' => InvoiceResource::collection($invoice)
         ]);
     }
 }

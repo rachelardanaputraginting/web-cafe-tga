@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AdminProductController extends Controller
 {
@@ -36,6 +37,24 @@ class AdminProductController extends Controller
         return inertia('Admin/Products/Table', [
             "products" => ProductTableResource::collection($products),
         ]);
+    }
+
+    public function qrcode()
+    {
+        $data = Product::all();
+        // dd($data);
+        $qrCodes = [];
+
+        foreach ($data as $item) {
+            if ($item->slug) {
+                $qrCode = QrCode::size(300)->generate($item->slug);
+                $qrCodes[] = $qrCode->toHtml();
+            }
+        }
+
+        // dd($qrCodes);
+
+        return inertia('Admin/Products/QRCode', ['qrCodes' => $qrCodes]);
     }
 
     /**

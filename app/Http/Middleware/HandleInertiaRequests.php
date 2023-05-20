@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -70,6 +71,19 @@ class HandleInertiaRequests extends Middleware
                         ]
                     ])) : 0,
             'carts_global_count' => $cart_global_count,
+            'product' => $request->user() ?
+                Cache::rememberForever('product', fn () => Product::query()
+                    ->with('category')
+                    ->when($request->category, fn ($q, $v) => $q->whereBelongsTo(Category::where('slug', $v)->first()))
+                    ->select('name', 'slug', 'category_id', 'price', 'picture')
+                    ->latest()
+                    ->get()->map(fn ($q) => [
+                        "name" => $q->name,
+                        "slug" => $q->slug,
+                        "price" => $q->price,
+                        "picture" => $q->picture,
+                        "category_id" => $q->category_id,
+                    ])) : 0,
         ]);
     }
 }

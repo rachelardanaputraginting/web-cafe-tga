@@ -38,6 +38,7 @@ Route::get('admin/products/show/{product:slug}', [AdminProductController::class,
 Route::get('admin/products/edit/{product:slug}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
 Route::put('admin/products/update/{product:slug}', [AdminProductController::class, 'update'])->name('admin.products.update');
 Route::delete('admin/products/destroy/{product:slug}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+Route::get('admin/products/qrcode', [AdminProductController::class, 'qrcode'])->name('admin.products.qrcode');
 
 Route::controller(CartController::class)->group(function () {
     Route::get('/carts', 'index')->name('cart.index');
@@ -47,6 +48,7 @@ Route::controller(CartController::class)->group(function () {
 
 Route::controller(InvoiceController::class)->middleware('auth')->group(function () {
     Route::post('/invoice', 'store')->name('invoice.store');
+    Route::get('/invoices', 'invoice')->name('invoice.index');
     Route::get('/invoice/{invoice:order_id}', 'show')->name('invoice.show');
 });
 

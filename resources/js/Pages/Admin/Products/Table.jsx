@@ -1,22 +1,23 @@
-import Button from '@/Components/Button';
 import Container from '@/Components/Container';
 import Pagination from '@/Components/Pagination';
 import Table from '@/Components/Table';
 import useSwal from '@/Hooks/useSwal';
 import App from '@/Layouts/App';
 import { numberFormat } from '@/Libs/Helper';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import React from 'react'
 
 export default function ProductTable(props) {
+    const { auth } = usePage().props;
     const { data: products, meta, links } = props.products;
     const { ask } = useSwal();
+
     return (
         <Container>
             <Head title='Table' />
             <div className="flex text-secondary mt-48 gap-4 items-center">
                 <div><Link href={`/admin/products/create`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Add</Link></div>
-                <div><Button className='bg-secondary'>Generate QR Code </Button></div>
+                <div><Link href={`/admin/products/qrcode`} className='inline-flex items-center text-center justify-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150'>Generate QR Code</Link></div>
             </div>
             <Table className='w-full'>
                 <Table.Thead>
