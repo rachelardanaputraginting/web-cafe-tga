@@ -7,10 +7,17 @@ import { numberFormat } from '@/Libs/Helper';
 import Footer from '@/Components/Footer';
 import NavLink from '@/Components/NavLink';
 import Html5QrcodePlugin from '@/Components/Scan';
+import Select from '@/Components/Select';
+import InputLabel from '@/Components/InputLabel';
+import Input from '@/Components/Input';
+import Error from '@/Components/Error';
+import Button from '@/Components/Button';
+import InvoicesForm from '@/Components/InvoicesForm';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function App(props) {
     // const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);\
-    const { delete: destroy, post } = useForm()
+    const { delete: destroy, post, errors } = useForm()
     const { children } = props;
     const { carts_global, carts_global_count, auth, product } = usePage().props
     let [isOpen, setIsOpen] = useState(false)
@@ -29,7 +36,7 @@ export default function App(props) {
             }
         })
     }
-    let total = carts_global.reduce((acc, cart) => acc + cart.price + cart.quantity, 0);
+    let total = carts_global.reduce((acc, cart) => acc + cart.price, 0);
 
     const config = {
         interval: 1000,
@@ -56,6 +63,24 @@ export default function App(props) {
         scan.classList.remove('block');
     }
 
+    const { data, setData } = useForm({
+        id: '',
+        name: '',
+        carts: '',
+        total: '',
+    })
+
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        Inertia.post(route('invoice.store'), {
+            ...data,
+            carts: carts_global,
+            total: total,
+            id: data.id.id,
+        })
+    }
+
     return (
         <div className="min-h-screen">
             <Navbar />
@@ -68,7 +93,7 @@ export default function App(props) {
                 </button>
                 <Html5QrcodePlugin
                     className="rounded-lg bg-primary"
-                    fps={10}
+                    fps={5}
                     qrbox={250}
                     disableFlip={false}
                     qrCodeSuccessCallback={onNewScanResult}
@@ -226,14 +251,13 @@ export default function App(props) {
                         </button>
 
 
-                        {carts_global.length > 0 ? <NavLink href='/invoice' method="post" as='button' data={{ carts: carts_global, total: total }} className='w-full py-3 mt-12 gap-2 bg-primary flex items-center justify-center rounded'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                            </svg>
-                            Buy Now
-                        </NavLink> : null}
 
+                        {carts_global.length > 0 ? <form onSubmit={onSubmit} className='w-full'>
+                            <InvoicesForm {...{ data, setData }} ></InvoicesForm>
+                            <Button> Buy Now</Button>
+                        </form> : null}
                     </>
+
                 </CartDialog>
 
                 <Footer />

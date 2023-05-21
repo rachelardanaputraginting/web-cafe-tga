@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('order_id');
+            $table->string('table_id');
             $table->double('total_price');
             $table->string('status')->default(0);
-            $table->json('card_ids');
             $table->dateTime('succeeded_at')->nullable();
             $table->timestamps();
         });

@@ -23,7 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(InvoiceController::class)->middleware('auth')->group(function () {
         Route::post('/invoice', 'store')->name('invoice.store');
         Route::get('/invoices', 'invoice')->name('invoice.index');
-        Route::get('/invoice/{invoice:order_id}', 'show')->name('invoice.show');
+        Route::put('/invoices/update/{id}', 'update')->name('invoice.update');
+        // Route::get('/invoice/{invoice:order_id}', 'show')->name('invoice.show');
     });
 
     Route::controller(CartController::class)->group(function () {

@@ -81,6 +81,7 @@ class AdminProductController extends Controller
     public function store(Request $request)
     {
         $picture = $request->file('picture');
+
         Product::create([
             "name" => $request->name,
             "slug" => $slug = str($request->name . '-' .  rand(10, 100))->slug(),
@@ -129,11 +130,12 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        // dd($request->category_id['id']);s
         $picture = $request->file('picture');
         $product->update([
             "name" => $request->name,
             "slug" => str($request->name . '-' .  rand(10, 100))->slug(),
-            "category_id" => $request->category_id['id'],
+            "category_id" => $request->category_id,
             "price" => $request->price,
             "description" => $request->description,
             "picture" => $request->hasFile('picture') ? $picture->storeAs('images/products', $product->slug . '.' . $picture->extension()) : $product->picture

@@ -9,10 +9,7 @@ export default function Footer() {
                 <div className="max-w-2xl mx-auto text-center">
                     <ApplicationLogo className="fill-white text-center w-16 h-16 mx-auto" />
                     <p className="mt-5 text-gray-300">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quos, ipsam. Magni quidem corporis minus rem, doloribus
-                        nihil! Reprehenderit quasi omnis dolor dolores nostrum
-                        nobis molestias laudantium! Quod fuga ratione non?
+                        Terima kasih telah memilih QR Cafe sebagai tempat Anda untuk menikmati hidangan lezat dan pengalaman kafe yang tak terlupakan. Kami sangat menghargai dukungan Anda dan komitmen kami adalah memberikan kualitas terbaik serta kepuasan pelanggan yang tak ternilai. Kami berharap Anda menikmati waktu berharga di sini, dan selalu siap menyambut kedatangan Anda dengan senyum dan keramahan. Terima kasih atas kepercayaan Anda dan semoga QR Cafe menjadi destinasi favorit Anda untuk menikmati makanan, minuman, dan momen istimewa.
                     </p>
                     <p className="font-mono text-sm text-gray-400 mt-10 max-w-lg mx-auto">
                         Designed and built with all the love in the world by the{' '}

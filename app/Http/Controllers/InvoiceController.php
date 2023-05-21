@@ -14,32 +14,36 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $total = (int) $request->total;
-        // dd($request->payment_type);
         $cart_ids = $request->collect('carts')->pluck('id');
         $order_id = 'order-' . $request->user()->id . $cart_ids->implode('');
+        $table_id = $request->id;
+        // $invoiceExists = Invoice::where('order_id', $order_id)->firstOr(fn () => false);
+        // if ($invoiceExists) {
+        //     return to_route('products.index');
+        // } else {
+        // $invoce = Invoice::where('table_id', $table_id)->first();
+        Cart::where('table_id', 0)->update([
+            'status' => 1,
+            'paid_at' => now(),
+            'table_id' => $table_id,
+        ]);
 
-        // dd($cart_ids);
-        $invoiceExists = Invoice::where('order_id', $order_id)->firstOr(fn () => false);
-        if ($invoiceExists) {
-            return to_route('invoice.show', $invoiceExists);
-        } else {
-            $invoice = Auth::user()->invoices()->updateOrcreate(compact('order_id'), [
-                'order_id' => $order_id,
-                'total_price' => $total,
-                'card_ids' => $cart_ids,
-            ]);
-            // $invoice_order_id = Invoice::where('order_id', $order_id)->first();
-            $invoice->update([
-                "succeeded_at" => now(),
-                'status' => 1,
-            ]);
+        $total_price = Cart::where('table_id', $table_id)->get()->sum('price');
+        $invoice = Auth::user()->invoices()->updateOrcreate(compact('table_id'), [
+            'order_id' => $order_id,
+            'total_price' => $total_price,
+            // 'card_ids' => $cart_ids,
+            'table_id' => $table_id,
+        ]);
+        // $invoice_order_id = Invoice::where('order_id', $order_id)->first();
+        // $card = Cart::where('table_id', $table_id)->first();
+
+        $invoice->update([
+            "succeeded_at" => now(),
+        ]);
 
 
-            $card = Cart::whereIn('id', $cart_ids);
-            $card->update([
-                'paid_at' => now(),
-            ]);
-        }
+
         return back();
     }
 
@@ -47,12 +51,19 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::query()
             ->where('user_id', Auth::user()->id)
-            ->select('user_id', 'total_price', 'card_ids', 'order_id', 'succeeded_at')
+            ->select('id', 'user_id', 'total_price', 'table_id', 'order_id', 'status', 'succeeded_at')
             ->latest()
             ->paginate(12)
             ->withQueryString();
         return inertia('Invoices/Table', [
             'invoices' => InvoiceResource::collection($invoice)
+        ]);
+    }
+
+    public function update(Request $request, Invoice $invoice)
+    {
+        $invoice->where('id', $request->id)->update([
+            "status" => 1
         ]);
     }
 }

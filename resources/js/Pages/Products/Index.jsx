@@ -15,13 +15,13 @@ export default function Index(props) {
             <Head title="Our Products" />
             <Header>
                 <Header.Title>
-                    Our Products
+                    Produk Kami
                 </Header.Title>
                 <Header.Subtitle>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing.
+                    Berikut beberapa product yang kami sajikan untuk Anda
                 </Header.Subtitle>
                 <Header.Content>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis esse similique aperiam illo quidem fugiat eligendi, labore iure numquam rerum, vero ea et obcaecati maiores! Sit neque pariatur eos sequi.
+                    Dalam menu kami yang beragam, terdapat berbagai pilihan makanan dan minuman yang menggugah selera. Mulai dari kopi spesialitas yang segar dan aromatik, hidangan ringan yang lezat, hingga hidangan utama yang memanjakan lidah, kami menawarkan berbagai pilihan yang dapat memenuhi keinginan dan selera setiap pelanggan.
                 </Header.Content>
             </Header>
             <Container>

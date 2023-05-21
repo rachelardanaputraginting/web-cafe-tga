@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +37,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $cart_global_count = $request->user() ? Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count() : null;
+        $cart_global_count = $request->user() ? Cart::whereBelongsTo($request->user())->where('status', 0)->count() : null;
         Cache::flush();
         return array_merge(parent::share($request), [
             'auth' => [
@@ -57,6 +58,7 @@ class HandleInertiaRequests extends Middleware
                     ->with('product')
                     ->whereBelongsTo($request->user())
                     ->whereNull('paid_at')
+                    ->where('status', 0)
                     ->get()->map(fn ($q) => [
                         "id" => $q->id,
                         "price" => $q->price,
@@ -83,6 +85,14 @@ class HandleInertiaRequests extends Middleware
                         "price" => $q->price,
                         "picture" => $q->picture,
                         "category_id" => $q->category_id,
+                    ])) : 0,
+            'tables' => $request->user() ?
+                Cache::rememberForever('tables', fn () => Table::query()
+                    ->select('name', 'id', 'slug')
+                    ->get()->map(fn ($q) => [
+                        "id" => $q->id,
+                        "name" => $q->name,
+                        "slug" => $q->slug,
                     ])) : 0,
         ]);
     }

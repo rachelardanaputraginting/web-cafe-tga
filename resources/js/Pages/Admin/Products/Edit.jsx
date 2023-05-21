@@ -9,7 +9,7 @@ import ProductForm from '@/Components/ProductForm'
 // npm install @inertiajs/inertia @inertiajs/inertia-react --save
 
 export default function Edit({ product }) {
-    const { data, setData, put } = useForm({
+    const { data, setData } = useForm({
         name: product.name,
         price: product.price,
         category_id: product.category,
@@ -20,8 +20,10 @@ export default function Edit({ product }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        put(route('admin.products.update', product.slug), {
+        Inertia.post
+        Inertia.post(route('admin.products.update', product.slug), {
             ...data,
+            _method: "PUT",
             category_id: data.category_id.id,
         }, {
             onSuccess: () => toast.success('Product has been updated!')

@@ -15,4 +15,9 @@ class Invoice extends Model
     protected $cast = [
         "succeeded_at" => 'datetime',
     ];
+
+    public function carts()
+    {
+        return $this->hasMany(Carts::class);
+    }
 }

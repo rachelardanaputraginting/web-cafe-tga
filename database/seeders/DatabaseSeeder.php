@@ -15,10 +15,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\Table::create([
+            'name' => 'Table 1',
+            'slug' => 'table-1',
+            'status' => '1',
+        ]);
+        \App\Models\Table::create([
+            'name' => 'Table 2',
+            'slug' => 'table-2',
+            'status' => '1',
+        ]);
+        \App\Models\Table::create([
+            'name' => 'Table 3',
+            'slug' => 'table-3',
+            'status' => '1',
+        ]);
 
         \App\Models\User::factory()->create([
             'name' => 'Rachel Ardana Putra Ginting',

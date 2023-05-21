@@ -14,13 +14,15 @@ export default function Home({ products, ...props }) {
             <Head title="Home" />
             <Header className='order-first'>
                 <Header.Title>
-                    TGA Cafe
+                    QR Cafe
                 </Header.Title>
                 <Header.Subtitle>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing.
+                    Menikmati Kepraktisan Membayar dengan QR Code di Tempat
                 </Header.Subtitle>
                 <Header.Content>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis esse similique aperiam illo quidem fugiat eligendi, labore iure numquam rerum, vero ea et obcaecati maiores! Sit neque pariatur eos sequi.
+                    Dengan menggunakan sistem penjualan QR Code ini, pengunjung kafe dapat menghindari antrian panjang di kasir dan melakukan transaksi dengan cepat serta aman. Ini juga memberikan pengalaman yang lebih interaktif dan mudah untuk menjelajahi menu dan melakukan pembelian.
+
+                    QR Cafe menghadirkan kemudahan dan efisiensi dalam sistem penjualan dengan QR Code, memberikan pengalaman yang praktis dan modern bagi pengunjungnya.
                 </Header.Content>
             </Header>
             <Container>
